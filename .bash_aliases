@@ -1,11 +1,11 @@
 # Enable ls color support
 case "$(uname -s)" in
     Linux)
-	    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-	    alias ls='ls --color=auto'
+        test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+        alias ls='ls --color=auto'
         ;;
     Darwin)
-	    alias ls='ls -G'
+        alias ls='ls -G'
         ;;
     *)
         exit

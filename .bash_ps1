@@ -11,7 +11,7 @@ gitinfo=
 
 # The current hostname, to be shown
 # above every prompt
-hostname=`hostname`
+hostname=`hostname -f`
 
 ## COLORS ###
            RED="\[\033[0;31m\]"
