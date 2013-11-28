@@ -8,7 +8,7 @@ case "$(uname -s)" in
         alias ls='ls -G'
         ;;
     *)
-        exit
+        alias ls='ls --color=auto'
         ;;
 esac
 
