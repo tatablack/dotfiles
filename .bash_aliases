@@ -3,7 +3,6 @@ case "$(uname -s)" in
     Linux|CYGWIN*)
         test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
         alias ls='ls --color=auto'
-		echo "here"
         ;;
     Darwin)
         alias ls='ls -G'
