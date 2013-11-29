@@ -12,7 +12,14 @@ usercolor=""
 
 # The current hostname, to be shown
 # above every prompt
-hostname=`hostname -f`
+case "$(uname -s)" in
+    CYGWIN*)
+        hostname=`hostname`
+        ;;
+    *)
+        hostname=`hostname -f`
+        ;;
+esac
 
 ## COLORS ###
            RED="\e[31m"
