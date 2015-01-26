@@ -1,0 +1,28 @@
+# Enable grep color support
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+
+# Some more ls aliases
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+
+# Git aliases
+alias gitroot='cd $(git rev-parse --show-toplevel)'
+
+# Node & npm
+alias npmlg='npm -g ls --depth=0'
+
+# Enable multiple config files for SSH
+alias ssh='cat ~/.ssh/config.d/* > ~/.ssh/config; chmod 600 ~/.ssh/config; ssh'
+
+# Useful functions
+function whatismyip () {
+    curl icanhazip.com
+}
+
+# Let's get some machine-specific aliases
+if [ -f ~/.zshrc_aliases_local ]; then
+    . ~/.zshrc_aliases_local
+fi
