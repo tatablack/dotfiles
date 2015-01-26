@@ -45,3 +45,7 @@ fi
 if [ -f ~/.bashrc_local ]; then
     . ~/.bashrc_local
 fi
+
+# Useful functions
+function whatismyip () { curl icanhazip.com; echo; }
+
