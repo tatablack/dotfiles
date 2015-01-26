@@ -1,0 +1,9 @@
+# Intellij IDEA project files
+.idea
+*.iml
+
+# You never know
+.svn
+
+#Mac OSX
+.DS_Store
