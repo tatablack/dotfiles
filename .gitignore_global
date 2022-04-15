@@ -1,9 +1,45 @@
+########################
+#         IDEs         #
+########################
 # Intellij IDEA project files
-.idea
 *.iml
 
-# You never know
-.svn
+########################
+#        Python        #
+########################
+# Virtual environments
+venv
 
-#Mac OSX
+# Compiled files
+*.pyc
+
+# Caches
+.pytest_cache
+*.picklecache
+
+
+########################
+#        Node.js       #
+########################
+node_modules
+npm-debug.log
+
+
+########################
+#         OSes         #
+########################
+# Mac OSX
 .DS_Store
+
+
+########################
+#    Local Runtimes    #
+########################
+.direnv
+
+
+########################
+# Configuration files  #
+########################
+# direnv
+.envrc
