@@ -1,0 +1,116 @@
+{{- if (eq .chezmoi.os "darwin") -}}
+#!/usr/bin/env bash
+
+set -eufo pipefail
+
+# CLI Apps
+{{ $brews := list
+        "bat"
+        "bottom"
+        "cloc"
+        "coreutils"
+        "exa"
+        "finicky"
+        "fish"
+        "git"
+        "git-delta"
+        "git-quick-stats"
+        "jq"
+        "micro"
+        "openssl"
+        "ssh-copy-id"
+        "starship"
+        "tldr"
+        "wget"
+        "youtube-dl"
+        "yq"
+        "zoxide"
+ -}}
+
+# GUI Apps from App Store
+{{ $masapps := list
+        "Amphetamine"
+        "ColorSlurp"
+ -}}
+
+# Other GUI Apps
+{{ $casks := list
+        "alfred"
+        "audio-hijack"
+        "bitwarden"
+        "clipy"
+        "coconutbattery"
+        "disk-inventory-x"
+        "dozer"
+        "fanny"
+        "firefox-developer-edition"
+        "flux"
+        "fork"
+        "forklift"
+        "google-chrome"
+        "gpg-suite-no-mail"
+        "hammerspoon"
+        "iina"
+        "imageoptim"
+        "istat-menus"
+        "iterm2"
+        "keka"
+        "noti"
+        "pdf-expert"
+        "postman"
+        "rectangle"
+        "slack"
+        "spotify"
+        "sublime-text"
+        "teamviewer"
+        "telegram"
+        "visual-studio-code"
+        "whatsapp"
+        "zoom"
+-}}
+
+# Quicklook plugins
+{{   $casks = concat $casks (list
+        "qlcolorcode"
+        "qlstephen"
+        "qlmarkdown"
+        "quicklook-json"
+        "qlprettypatch"
+        "quicklook-csv"
+        "betterzip"
+        "webpquicklook"
+        "suspicious-package"
+ -}}
+
+# Fonts
+{{   $casks = concat $casks (list
+        "font-fira-code-nerd-font"
+        "font-fira-mono-for-powerline"
+        "font-cascadia-code-pl"
+        "font-cascadia-mono-pl"
+ -}}
+
+{{ if .personal -}}
+{{   $casks = concat $casks (list
+        "airtable"
+        "dropbox"
+        "farrago"
+        "google-drive"
+        "keybase"
+        "obsidian"
+        "skype"
+ -}}
+{{ end -}}
+
+brew bundle --no-lock --file=/dev/stdin <<EOF
+{{ range ($brews | sortAlpha | uniq) -}}
+brew "{{ . }}"
+{{ end -}}
+{{ range ($casks | sortAlpha | uniq) -}}
+cask "{{ . }}"
+{{ end -}}
+{{ range ($masapps | sortAlpha | uniq) -}}
+mas "{{ . }}"
+{{ end -}}
+EOF
+{{ end -}}

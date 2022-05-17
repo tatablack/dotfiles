@@ -1,0 +1,63 @@
+#!/usr/bin/env bash
+
+fancy_echo() {
+  local fmt="$1"; shift
+
+  # shellcheck disable=SC2059
+  printf "\\n$fmt\\n" "$@"
+}
+
+
+# shellcheck disable=SC2154
+trap 'ret=$?; test $ret -ne 0 && printf "\nThe bootstrap procedure did not complete.\n\n" >&2; exit $ret' EXIT
+
+set -e
+
+
+# Get information from the user
+fancy_echo "Bootstrap sequence initiated"
+read -p 'Please, provide the email associated to your Apple ID: ' EMAIL_APPLEID
+read -p "And now, the email associated to your GitHub account [${EMAIL_APPLEID}]: " EMAIL_GITHUB
+read -p "...and to your Bitwarden account [${EMAIL_APPLEID}]: " EMAIL_BITWARDEN
+read -p 'If you want to use a custom Bitwarden server, provide its url now (including the trailing slash): ' BITWARDEN_SERVER
+read -p "Provide a hostname for this computer (no spaces): " HOSTNAME
+
+if [ -z ${EMAIL_GITHUB} ]; then EMAIL_GITHUB="${EMAIL_APPLEID}"; fi
+if [ -z ${EMAIL_BITWARDEN} ]; then EMAIL_BITWARDEN="${EMAIL_APPLEID}"; fi
+
+if ! command -v brew >/dev/null; then
+  fancy_echo "Installing Homebrew..."
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+else
+  fancy_echo "Homebrew is already installed, skipping"
+fi
+
+fancy_echo "Updating Homebrew formulae..."
+brew bundle --file=- <<EOF
+brew "chezmoi"
+brew "mas"
+brew "rbw"
+EOF
+
+rbw config set email ${EMAIL_BITWARDEN}
+rbw config set base_url ${BITWARDEN_SERVER}
+rbw sync
+
+# Ask for the administrator password upfront
+sudo -v
+
+# Keep-alive: update existing `sudo` timestamp until `./bootstrap` has finished
+while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+
+# Close any open System Preferences panes, to prevent them from
+# overriding settings we’re about to change
+osascript -e 'tell application "System Preferences" to quit'
+
+# Set computer name (as done via System Preferences → Sharing)
+sudo scutil --set ComputerName "$HOSTNAME"
+sudo scutil --set HostName "$HOSTNAME"
+sudo scutil --set LocalHostName "$HOSTNAME"
+sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "$HOSTNAME"
+
+# Delegate further actions to chezmoi scripts in my own dotfiles repository
+chezmoi init tatablack

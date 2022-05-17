@@ -1,0 +1,85 @@
+[user]
+  name = Angelo Tata
+  email = angelo.tata@gmail.com
+ 
+[color]
+  status = auto
+  branch = auto
+  diff = auto
+
+[credential]
+  helper = osxkeychain
+
+[alias]
+  co = checkout
+  ci = commit
+  st = status
+  stu = status -u
+  br = branch
+  dt = difftool
+  undo = reset --soft 'HEAD^'
+  hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
+  type = cat-file -t
+  dump = cat-file -p
+  pr = pull --rebase
+  ls = log --pretty=format:%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn] --decorate
+  ll = log --pretty=format:%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn] --decorate --numstat
+  ldl = log --pretty=format:%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%an] --decorate --date=local
+  dr = "!f() { git diff $1^..$1; }; f" # Diff by revision
+  lc = "!f() { git ll $1^..$1; }; f" # List changed files by revision
+  f = !git ls-files | grep -i # Find file by pattern
+  gr = "!f() { A=$(pwd) && TOPLEVEL=$(git rev-parse --show-toplevel) && cd $TOPLEVEL && git grep --full-name -In $1 | xargs -I{} echo $TOPLEVEL/{} && cd $A; }; f" # Grep pattern in all files starting from the repo root
+  la = !git config -l | grep alias | cut -c 7- # List aliases
+  new = !sh -c 'git log $1@{1}..$1@{0} $@'
+  sortdiff = !sh -c 'git diff $@ | grep ^[+-] | sort --key=1.2 | uniq -u -s1'
+  # the acronym stands for "subtree add"
+  sba = "!f() { git subtree add --prefix $2 $1 master --squash; }; f"
+  # the acronym stands for "subtree update"
+  sbu = "!f() { git subtree pull --prefix $2 $1 master --squash; }; f"
+
+[core]
+  excludesfile = ~/config/git/ignore_global
+  editor = micro
+
+[core]
+    pager = delta
+
+[diff]
+    colorMoved = default
+
+[merge]
+    conflictstyle = diff3
+
+[delta]
+  plus-style = "syntax #012800"
+  minus-style = "syntax #340001"
+  syntax-theme = Monokai Extended
+  navigate = true
+  side-by-side = true
+
+[interactive]
+  diffFilter = delta --color-only
+
+[filter "lfs"]
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+  required = true
+
+[gpg]
+	program = /usr/local/bin/gpg
+
+[init]
+  defaultBranch = main
+
+[commit]
+  gpgsign = true
+
+[push]
+	default = current
+
+[pull]
+  rebase = false
+
+[gc]
+  autoDetach = false

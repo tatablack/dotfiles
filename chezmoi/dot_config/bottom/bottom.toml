@@ -1,0 +1,28 @@
+[flags] 
+# General appearance
+color = "gruvbox"
+
+# Processes
+group_processes = true
+tree = true
+show_table_scroll_position = true
+mem_as_value = true
+advanced_kill = true
+regex = true
+
+# Charts
+temperature_type = "c"
+
+[[row]]
+    ratio=4
+    [[row.child]]
+        ratio=4
+        type="processes"
+[[row]]
+    ratio=2
+    [[row.child]]
+        ratio=5
+        type="cpu"
+    [[row.child]]
+        ratio=2
+        type="net"
