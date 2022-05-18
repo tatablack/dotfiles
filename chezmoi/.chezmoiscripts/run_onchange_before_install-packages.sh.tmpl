@@ -29,13 +29,7 @@ set -eufo pipefail
         "zoxide"
  -}}
 
-# GUI Apps from App Store
-{{ $masapps := list
-        "Amphetamine"
-        "ColorSlurp"
- -}}
-
-# Other GUI Apps
+# GUI Apps
 {{ $casks := list
         "alfred"
         "audio-hijack"
@@ -114,6 +108,11 @@ brew "{{ . }}"
 {{ range ($casks | sortAlpha | uniq) -}}
 cask "{{ . }}"
 {{ end -}}
+
+# GUI Apps from App Store
+mas "Amphetamine", id: 937984704
+mas "ColorSlurp", id: 1287239339
+
 {{ range ($masapps | sortAlpha | uniq) -}}
 mas "{{ . }}"
 {{ end -}}
