@@ -20,7 +20,7 @@ However, if you're stting up a new Mac, there are still a few manual actions nee
 
 Now you can execute the bootstrap script, with:
 
-```curl -fsSL https://raw.githubusercontent.com/tatablack/dotfiles/master/mac/bootstrap```
+```/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/tatablack/dotfiles/master/mac/bootstrap)```
 
 This will:
 - ask for some information up front, namely:
