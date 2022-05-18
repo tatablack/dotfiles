@@ -6,10 +6,10 @@ set -eufo pipefail
 {{ $brews := list
         "bat"
         "bottom"
+        "brew-cask-completion"
         "cloc"
         "coreutils"
         "exa"
-        "finicky"
         "fish"
         "git"
         "git-delta"
@@ -39,6 +39,7 @@ set -eufo pipefail
         "disk-inventory-x"
         "dozer"
         "fanny"
+        "finicky"
         "firefox-developer-edition"
         "flux"
         "fork"
@@ -81,6 +82,7 @@ set -eufo pipefail
 
 # Fonts
 {{   $casks = concat $casks (list
+        "font-jetbrains-mono"
         "font-fira-code-nerd-font"
         "font-fira-mono-for-powerline"
         "font-cascadia-code-pl"
@@ -102,9 +104,13 @@ set -eufo pipefail
 {{ end -}}
 
 brew bundle --no-lock --file=/dev/stdin <<EOF
+tap "homebrew/cask-fonts"
+tap "homebrew/cask-versions"
+
 {{ range ($brews | sortAlpha | uniq) -}}
 brew "{{ . }}"
 {{ end -}}
+
 {{ range ($casks | sortAlpha | uniq) -}}
 cask "{{ . }}"
 {{ end -}}
