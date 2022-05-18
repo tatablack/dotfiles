@@ -1,6 +1,5 @@
 {{- if (eq .chezmoi.os "darwin") -}}
 #!/usr/bin/env bash
-
 set -eufo pipefail
 
 # CLI Apps
@@ -18,9 +17,12 @@ set -eufo pipefail
         "jq"
         "micro"
         "openssl"
+        "poppler"
         "ssh-copy-id"
         "starship"
+        "terminal-notifier"
         "tldr"
+        "wakeonlan"
         "wget"
         "youtube-dl"
         "yq"
@@ -80,6 +82,7 @@ set -eufo pipefail
         "betterzip"
         "webpquicklook"
         "suspicious-package"
+        )
  -}}
 
 # Fonts
@@ -88,6 +91,7 @@ set -eufo pipefail
         "font-fira-mono-for-powerline"
         "font-cascadia-code-pl"
         "font-cascadia-mono-pl"
+        )
  -}}
 
 {{ if .personal -}}
@@ -99,6 +103,7 @@ set -eufo pipefail
         "keybase"
         "obsidian"
         "skype"
+        )
  -}}
 {{ end -}}
 
