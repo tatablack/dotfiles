@@ -112,9 +112,5 @@ cask "{{ . }}"
 # GUI Apps from App Store
 mas "Amphetamine", id: 937984704
 mas "ColorSlurp", id: 1287239339
-
-{{ range ($masapps | sortAlpha | uniq) -}}
-mas "{{ . }}"
-{{ end -}}
 EOF
 {{ end -}}
