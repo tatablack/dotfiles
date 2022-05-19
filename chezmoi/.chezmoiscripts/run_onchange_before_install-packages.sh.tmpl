@@ -115,13 +115,17 @@ brew bundle --no-lock --file=/dev/stdin <<EOF
 tap "homebrew/cask-fonts"
 tap "homebrew/cask-versions"
 
-{{ range ($brews_to_install | sortAlpha | uniq) -}}
-brew "{{ . }}"
-{{ end -}}
+$(
+    for brew in $brews_to_install; do
+        echo "brew ${brew}"
+    done
+)
 
-{{ range ($casks_to_install | sortAlpha | uniq) -}}
-cask "{{ . }}"
-{{ end -}}
+$(
+    for cask in $casks_to_install; do
+        echo "cask ${cask}"
+    done
+)
 
 # GUI Apps from App Store
 mas "Amphetamine", id: 937984704
