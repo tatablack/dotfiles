@@ -4,6 +4,7 @@ set -eufo pipefail
 
 # CLI Apps
 {{ $brews := list
+        "atuin"
         "bat"
         "bottom"
         "brew-cask-completion"
@@ -109,14 +110,14 @@ all_casks=({{ range ($casks | sortAlpha | uniq) -}}{{ . }} {{ end -}})
 already_installed_casks=($(brew list --cask))
 
 brews_to_install=()
-for brew in $all_brews; do
+for brew in "${all_brews[@]}"; do
     if [[ ! " ${already_installed_brews[*]} " =~ " ${brew} " ]]; then
         brews_to_install+=($brew)
     fi
 done
 
 casks_to_install=()
-for cask in $all_casks; do
+for cask in "${all_casks[@]}"; do
     if [[ ! " ${already_installed_casks[*]} " =~ " ${cask} " ]]; then
         casks_to_install+=($cask)
     fi
