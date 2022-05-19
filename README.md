@@ -34,7 +34,7 @@ This will:
     - `chezmoi` - dotfiles manager
     - `mas` - Mac App Store command-line interfac
     - `rbw` - Unoffical Bitwarden CLI
-- execute `chezmoi init --apply <Your GitHub username>`. This will:
+- execute `chezmoi init --apply <your GitHub username>`. This will:
 	- clone the `dotfiles` repo for the given user
 	- ask for some pieces of information (e.g. email for git, machine type)
 	- run `brew bundle install`
