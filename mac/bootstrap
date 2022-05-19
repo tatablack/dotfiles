@@ -62,7 +62,7 @@ fancy_echo "Your hostname is now set to ${HOSTNAME}"
 
 # Delegate further actions to chezmoi scripts in my own dotfiles repository
 fancy_echo "Delegating to chezmoi..."
-chezmoi init ${GH_USERNAME}
+chezmoi init --apply ${GH_USERNAME}
 
 # And we're done
 fancy_echo "Bootstrap finished."
