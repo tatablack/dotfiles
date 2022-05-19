@@ -130,7 +130,7 @@ tap "homebrew/cask-versions"
 $(
   if (( ${#brews_to_install[@]} )); then
     for brew in "${brews_to_install[@]}"; do
-        echo \"brew ${brew}\"
+        echo brew ${brew}
     done
   fi
 )
@@ -138,7 +138,7 @@ $(
 $(
   if (( ${#casks_to_install[@]} )); then
     for cask in "${casks_to_install[@]}"; do
-        echo \"cask ${cask}\"
+        echo cask ${cask}
     done
   fi
 )
