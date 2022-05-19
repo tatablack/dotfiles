@@ -108,23 +108,38 @@ already_installed_brews=($(brew leaves))
 all_casks=({{ range ($casks | sortAlpha | uniq) -}}{{ . }} {{ end -}})
 already_installed_casks=($(brew list --cask))
 
-brews_to_install=($(comm -23 <(printf "%s\n" "${all_brews[@]}") <(printf "%s\n" "${already_installed_brews[@]}")))
-casks_to_install=($(comm -23 <(printf "%s\n" "${all_casks[@]}") <(printf "%s\n" "${already_installed_casks[@]}")))
+brews_to_install=()
+for brew in $all_brews; do
+    if [[ ! " ${already_installed_brews[*]} " =~ " ${brew} " ]]; then
+        brews_to_install+=($brew)
+    fi
+done
+
+casks_to_install=()
+for cask in $all_casks; do
+    if [[ ! " ${already_installed_casks[*]} " =~ " ${cask} " ]]; then
+        casks_to_install+=($cask)
+    fi
+done
 
 brew bundle --no-lock --file=/dev/stdin <<EOF
 tap "homebrew/cask-fonts"
 tap "homebrew/cask-versions"
 
 $(
-    for brew in $brews_to_install; do
-        echo "brew ${brew}"
+  if (( ${#brews_to_install[@]} )); then
+    for brew in "${brews_to_install[@]}"; do
+        echo \"brew ${brew}\"
     done
+  fi
 )
 
 $(
-    for cask in $casks_to_install; do
-        echo "cask ${cask}"
+  if (( ${#casks_to_install[@]} )); then
+    for cask in "${casks_to_install[@]}"; do
+        echo \"cask ${cask}\"
     done
+  fi
 )
 
 # GUI Apps from App Store
@@ -132,5 +147,3 @@ mas "Amphetamine", id: 937984704
 mas "ColorSlurp", id: 1287239339
 EOF
 {{ end -}}
-
-
