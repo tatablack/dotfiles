@@ -40,4 +40,4 @@ This will:
 	- run `brew bundle install`
 	- process dotfiles and copy them to the home folder
 	- install some Visual Studio Code extensions
-
+    - set your default shell to `fish`
