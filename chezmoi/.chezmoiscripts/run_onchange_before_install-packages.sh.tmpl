@@ -103,15 +103,23 @@ set -eufo pipefail
  -}}
 {{ end -}}
 
+all_brews=({{ range ($brews | sortAlpha | uniq) -}}{{ . }} {{ end -}})
+already_installed_brews=($(brew leaves))
+all_casks=({{ range ($casks | sortAlpha | uniq) -}}{{ . }} {{ end -}})
+already_installed_casks=($(brew list --cask))
+
+brews_to_install=($(comm -23 <(printf "%s\n" "${all_brews[@]}") <(printf "%s\n" "${already_installed_brews[@]}")))
+casks_to_install=($(comm -23 <(printf "%s\n" "${all_casks[@]}") <(printf "%s\n" "${already_installed_casks[@]}")))
+
 brew bundle --no-lock --file=/dev/stdin <<EOF
 tap "homebrew/cask-fonts"
 tap "homebrew/cask-versions"
 
-{{ range ($brews | sortAlpha | uniq) -}}
+{{ range ($brews_to_install | sortAlpha | uniq) -}}
 brew "{{ . }}"
 {{ end -}}
 
-{{ range ($casks | sortAlpha | uniq) -}}
+{{ range ($casks_to_install | sortAlpha | uniq) -}}
 cask "{{ . }}"
 {{ end -}}
 
@@ -120,3 +128,5 @@ mas "Amphetamine", id: 937984704
 mas "ColorSlurp", id: 1287239339
 EOF
 {{ end -}}
+
+
