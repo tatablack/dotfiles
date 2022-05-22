@@ -1,5 +1,6 @@
 {{- if (eq .chezmoi.os "darwin") -}}
 #!/usr/bin/env bash
+set -eufo pipefail
 
 # Subset of .macos from https://mths.be/macos
 # Explanations for most of the settings below
