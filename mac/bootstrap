@@ -16,11 +16,9 @@ fancy_echo "Bootstrap sequence initiated"
 read -p 'Please, provide the email associated to your Apple ID: ' EMAIL_APPLEID
 read -p "And now, the email associated to your Bitwarden account [${EMAIL_APPLEID}]: " EMAIL_BITWARDEN
 read -p 'If you want to use a custom Bitwarden server, provide its url now (including the trailing slash): ' BITWARDEN_SERVER
-read -p "Provide a hostname for this computer (no spaces): " HOSTNAME
 read -p "Lastly, your GitHub username: " GH_USERNAME
 
 if [ -z ${EMAIL_BITWARDEN} ]; then EMAIL_BITWARDEN="${EMAIL_APPLEID}"; fi
-
 # Ask for the administrator password up front
 fancy_echo "We'll need superuser privileges later on (e.g. to set the machine's hostname), so..."
 sudo -v
@@ -47,18 +45,6 @@ fancy_echo "Configuring Bitwarden client..."
 rbw config set email ${EMAIL_BITWARDEN}
 rbw config set base_url ${BITWARDEN_SERVER}
 rbw sync
-
-# Close any open System Preferences panes, to prevent them from
-# overriding settings we’re about to change
-osascript -e 'tell application "System Preferences" to quit'
-
-# Set computer name (as done via System Preferences → Sharing)
-sudo scutil --set ComputerName "$HOSTNAME"
-sudo scutil --set HostName "$HOSTNAME"
-sudo scutil --set LocalHostName "$HOSTNAME"
-sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "$HOSTNAME"
-
-fancy_echo "Your hostname is now set to ${HOSTNAME}"
 
 # Delegate further actions to chezmoi scripts in my own dotfiles repository
 fancy_echo "Delegating to chezmoi..."
