@@ -9,13 +9,10 @@ asdf plugin-add asdf-golang https://github.com/kennyp/asdf-golang.git || true
 
 asdf install direnv latest
 asdf global direnv latest
+asdf direnv setup --shell bash --version latest
+asdf direnv setup --shell fish --version latest
 
 asdf install nodejs latest
-asdf global nodejs latest
-
 asdf install python latest
-asdf global python latest
-
 asdf install rust latest
-
 asdf install asdf-golang latest
