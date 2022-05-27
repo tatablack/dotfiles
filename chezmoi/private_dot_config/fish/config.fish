@@ -31,3 +31,9 @@ zoxide init fish | source
 # Set the default editor
 set -gx EDITOR micro
 set -gx VISUAL micro
+
+# Configure asdf
+source $(brew --prefix asdf)/libexec/asdf.fish
+
+# Configure direnv
+direnv hook fish | source
