@@ -127,7 +127,7 @@ done
 casks_to_install=()
 for cask in "${all_casks[@]}"; do
     if [[ ! " ${already_installed_casks[*]} " =~ " ${cask} " ]]; then
-        cask_app_file = brew info --cask ${cask} | grep "(App)" | awk '{print $1}'
+        cask_app_file=$(brew info --cask ${cask} | grep "(App)" | awk '{print $1}')
 
         # This identifies apps that were not installed as Brew casks  
         if ! bundleid_of "${cask_app_file}"; then
