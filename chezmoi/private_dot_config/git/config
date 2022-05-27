@@ -1,7 +1,8 @@
 [user]
   name = Angelo Tata
   email = angelo.tata@gmail.com
- 
+  signingkey = 5E54640D3C545349
+
 [color]
   status = auto
   branch = auto
