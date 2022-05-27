@@ -18,4 +18,4 @@ asdf global python latest
 
 asdf install rust latest
 
-asdf install golang latest
+asdf install asdf-golang latest
