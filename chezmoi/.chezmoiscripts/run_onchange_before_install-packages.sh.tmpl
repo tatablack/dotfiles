@@ -4,6 +4,7 @@ set -eufo pipefail
 
 # CLI Apps
 {{ $brews := list
+        "asdf"
         "atuin"
         "bat"
         "bottom"
@@ -95,6 +96,7 @@ set -eufo pipefail
 {{ if .personal -}}
 {{   $casks = concat $casks (list
         "airtable"
+        "android-platform-tools"
         "dropbox"
         "farrago"
         "google-drive"
