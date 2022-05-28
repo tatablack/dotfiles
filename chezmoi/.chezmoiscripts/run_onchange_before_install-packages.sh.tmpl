@@ -131,15 +131,37 @@ for brew in "${all_brews[@]}"; do
     fi
 done
 
+# Where do casks typically go?
+# Apps                          → /Applications
+# QuickLook plugins             → ~/Library/QuickLook
+# Spotlight metadata importers  → ~/Library/Spotlight
+
 casks_to_install=()
 for cask in "${all_casks[@]}"; do
     if [[ ! " ${already_installed_casks[*]} " =~ " ${cask} " ]]; then
-        cask_app_file=$(brew info --cask ${cask} | grep "(App)" | awk 'BEGIN{FS=OFS}{NF--; print}')
+      cask_info=$(brew info --cask ${cask})
+      cask_name=$(echo "${cask_info}" | grep -E "\(App|Spotlight metadata importer|QuickLook Plugin\)" | awk 'BEGIN{FS=OFS="("}{NF--; print}' | awk '{$1=$1};1')
 
-        # This identifies apps that were not installed as Brew casks  
-        if ! bundleid_of "${cask_app_file}"; then
-          casks_to_install+=($cask)
-        fi
+      echo "${cask_info}" | grep -qE "\(App\)"
+      is_app=$?
+      echo "${cask_info}" | grep -qE "\(QuickLook Plugin\)"
+      is_quicklookplugin=$?
+      echo "${cask_info}" | grep -qE "\(Spotlight metadata importer\)"
+      is_spotlight_metadata_importer=$?
+
+      if [[ $is_app ]]; then
+          bundleid_of "${cask_name}"
+      elif [[ $is_quicklookplugin ]]; then
+          ls  ~/Library/QuickLook/"${cask_name}" > /dev/null 2>&1
+      elif [[ $is_spotlight_metadata_importer ]]; then
+          ls  ~/Library/Spotlight/"${cask_name}" > /dev/null 2>&1
+      fi
+
+      is_installed=$?
+
+      if [[ "${is_installed}" == "1" ]]; then
+        casks_to_install+=($cask)
+      fi
     fi
 done
 
