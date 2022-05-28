@@ -1,6 +1,6 @@
 {{- if (eq .chezmoi.os "darwin") -}}
 #!/usr/bin/env bash
-set -eufo pipefail
+set -ufo pipefail
 
 bundleid_of() {
   osascript -e "id of application \"$1\"" > /dev/null 2>&1
