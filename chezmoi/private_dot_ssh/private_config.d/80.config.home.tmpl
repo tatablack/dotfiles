@@ -1,0 +1,3 @@
+{{- if .personal }}
+    {{- secret "get" "--full" "80.config.home" -}}
+{{- end }}

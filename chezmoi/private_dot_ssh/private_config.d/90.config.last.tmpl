@@ -1,6 +1,8 @@
 {{- if eq .chezmoi.os "darwin" }}
 
 Host *
+  IgnoreUnknown UseKeychain
+  IdentitiesOnly yes
   AddKeysToAgent yes
   UseKeychain yes
 {{- end }}
