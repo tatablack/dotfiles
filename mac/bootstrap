@@ -38,12 +38,14 @@ fancy_echo "Installing Homebrew formulae..."
 brew bundle --file=- <<EOF
 brew "chezmoi"
 brew "mas"
+brew "pinentry-mac"
 brew "rbw"
 EOF
 
 fancy_echo "Configuring Bitwarden client..."
 rbw config set email ${EMAIL_BITWARDEN}
 rbw config set base_url ${BITWARDEN_SERVER}
+rbw config set pinentry "pinentry-mac"
 rbw sync
 
 # Delegate further actions to chezmoi scripts in my own dotfiles repository
