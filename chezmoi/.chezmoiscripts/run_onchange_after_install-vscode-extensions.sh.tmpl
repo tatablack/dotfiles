@@ -1,12 +1,21 @@
 {{ if and (eq .chezmoi.os "darwin" "linux") (not .headless) -}}
 
 {{ $extensions := list
+     "bmalehorn.vscode-fish"
      "bungcip.better-toml"
      "eamodio.gitlens"
      "golang.go"
+     "k--kato.intellij-idea-keybindings"
+     "Lencerf.beancount"
      "ms-python.python"
+     "ms-python.vscode-pylance"
+     "ms-toolsai.jupyter"
+     "ms-toolsai.jupyter-keymap"
+     "ms-toolsai.jupyter-renderers"
      "ms-vscode.vscode-typescript-tslint-plugin"
      "redhat.vscode-yaml"
+     "speedy37.ascii-plist"
+     "timonwong.shellcheck"
      "Tyriar.sort-lines"
      "yzhang.markdown-all-in-one"
 -}}
