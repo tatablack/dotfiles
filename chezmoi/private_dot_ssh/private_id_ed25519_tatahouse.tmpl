@@ -1,1 +1,1 @@
-{{- ((list "SSH Key - " .hostname " - TataHouse" | join "" | secret "get" "--full"  | split "\n\n")._1) -}}
+{{- ((list "SSH Key - " .hostname " - TataHouse" | join "" | secret "get" "--full"  | split "\n\n")._1) }}
