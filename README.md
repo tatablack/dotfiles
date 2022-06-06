@@ -16,6 +16,7 @@ However, if you're stting up a new Mac, there are still a few manual actions nee
 - in System Preferences, configure your Apple ID
 - in System Preferences - Security and Privacy - FileVault, configure disk encryption
 - in System Preferences - Security and Privacy - Privacy - Accessibility, add Terminal.app to the list 
+- in System Preferences - Security and Privacy - Privacy - Full Disk Access, add Terminal.app to the list 
 - ensure you're logged in to the App Store
 
 Now you can execute the bootstrap script, with:
@@ -24,9 +25,8 @@ Now you can execute the bootstrap script, with:
 
 This will:
 - ask for some information up front, namely:
-	- your Apple Store email
-	- your Bitwarden email (defaults to the one just entered)
-	- custom Bitwarden server URL
+	- your Bitwarden email
+	- your custom Bitwarden server URL
     - your GitHub username
 - install HomeBrew (which in turn will install Apple's own Command Line Developer Tools, if needed)
 - using HomeBrew, install a few formulas, namely:

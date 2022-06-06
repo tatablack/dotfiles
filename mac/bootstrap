@@ -13,12 +13,10 @@ set -e
 
 # Get information from the user
 fancy_echo "Bootstrap sequence initiated"
-read -rp 'Please, provide the email associated to your Apple ID: ' EMAIL_APPLEID
-read -rp "And now, the email associated to your Bitwarden account [${EMAIL_APPLEID}]: " EMAIL_BITWARDEN
-read -rp 'If you want to use a custom Bitwarden server, provide its url now (including the trailing slash): ' BITWARDEN_SERVER
-read -rp "Lastly, your GitHub username: " GH_USERNAME
+read -rp "Please, provide the email associated to your Bitwarden account: " EMAIL_BITWARDEN
+read -rp "If you want to use a custom Bitwarden server, provide its url now (including the trailing slash): " BITWARDEN_SERVER
+read -rp "Lastly, your GitHub username, to retrieve your dotfiles: " GH_USERNAME
 
-if [ -z "${EMAIL_BITWARDEN}" ]; then EMAIL_BITWARDEN="${EMAIL_APPLEID}"; fi
 # Ask for the administrator password up front
 fancy_echo "We'll need superuser privileges later on (e.g. to set the machine's hostname), so..."
 sudo -v
