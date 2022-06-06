@@ -30,7 +30,7 @@ sudo scutil --set LocalHostName "$HOSTNAME"
 sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "$HOSTNAME"
 
 # Disable the sound effects on boot
-sudo nvram SystemAudioVolume=%00
+sudo nvram StartupMute=%01
 
 # Adjust toolbar title rollover delay
 defaults write NSGlobalDomain NSToolbarTitleViewRolloverDelay -float 0
