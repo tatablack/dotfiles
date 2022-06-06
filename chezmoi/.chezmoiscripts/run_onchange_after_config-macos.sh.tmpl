@@ -14,7 +14,7 @@ osascript -e 'tell application "System Preferences" to quit'
 echo "We'll need superuser privileges to configure the OS, so..."
 sudo -v
 
-# Keep-alive: update existing `sudo` timestamp until `./bootstrap` has finished
+# Keep-alive: update existing `sudo` timestamp until the current script has finished
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 
@@ -81,9 +81,9 @@ defaults write com.apple.universalaccess closeViewScrollWheelToggle -bool true
 defaults write com.apple.universalaccess HIDScrollZoomModifierMask -int 262144
 
 # Enable window dragging with three fingers
-defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerDrag true
-defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking true
-defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerDrag true
+defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerDrag -bool true
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerDrag -bool true
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerHorizSwipeGesture -int 1
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerVertSwipeGesture -int 0
 

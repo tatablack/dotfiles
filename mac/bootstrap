@@ -21,7 +21,7 @@ read -rp "Lastly, your GitHub username, to retrieve your dotfiles: " GH_USERNAME
 fancy_echo "We'll need superuser privileges later on (e.g. to set the machine's hostname), so..."
 sudo -v
 
-# Keep-alive: update existing `sudo` timestamp until `./bootstrap` has finished
+# Keep-alive: update existing `sudo` timestamp until the current script has finished
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 # Homebrew
