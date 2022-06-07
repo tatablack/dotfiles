@@ -146,7 +146,7 @@ done
 casks_to_install=()
 for cask in "${all_casks[@]}"; do
     if [[ ! " ${already_installed_casks[*]} " =~ " ${cask} " ]]; then
-      cask_info=$(brew info --cask ${cask})
+      cask_info=$(brew info --cask ${cask} 2> /dev/null)
       cask_name=$(echo "${cask_info}" | grep -E "\(App|Spotlight metadata importer|QuickLook Plugin\)" | awk 'BEGIN{FS=OFS="("}{NF--; print}' | awk '{$1=$1};1')
 
       echo "${cask_info}" | grep -qE "\(App\)"
