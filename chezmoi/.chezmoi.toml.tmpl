@@ -17,7 +17,9 @@
 {{-   $hostname = $computerName -}}
 {{- end -}}
 
-{{- if eq .chezmoi.os "windows" -}}
+{{- $hasAppleSilicon := false -}}
+{{- if and (eq .chezmoi.os "darwin") (eq .chezmoi.arch "arm64") -}}
+{{-   $hasAppleSilicon := true -}}
 {{- end -}}
 
 {{- if eq $hostname "Sesame" -}}
