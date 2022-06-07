@@ -76,10 +76,11 @@ fi
 
 fancy_echo "Installing Homebrew formulae..."
 brew bundle --file=- <<EOF
-brew "chezmoi"
-brew "mas"
-brew "pinentry-mac"
-brew "rbw"
+brew "bash"         # Need a recent version for certain scripts run by chezmoi
+brew "chezmoi"      # Dotfiles manager
+brew "mas"          # Used by Brew to install apps from the Mac App Store
+brew "pinentry-mac" # Pinentry GUI, used by rbw 
+brew "rbw"          # Alternative Bitwarden CLI
 EOF
 
 if [[ ! -f "$HOME/Library/Application Support/rbw/config.json" ]]; then
@@ -94,6 +95,7 @@ if [[ ! -f "$HOME/Library/Application Support/rbw/config.json" ]]; then
 fi
 
 rbw sync
+
 # Delegate further actions to chezmoi scripts in my own dotfiles repository
 fancy_echo "Delegating to chezmoi..."
 chezmoi init --apply "${GH_USERNAME}"
