@@ -89,7 +89,7 @@ bundleid_of() {
         "suspicious-package"
         "qlimagesize"
         "mdimagesizemdimporter"
-        )
+      )
  -}}
 
 # Fonts
@@ -99,25 +99,32 @@ bundleid_of() {
         "font-fira-mono-for-powerline"
         "font-cascadia-code-pl"
         "font-cascadia-mono-pl"
-        )
+      )
  -}}
 
-{{ if .personal -}}
-{{   $casks = concat $casks (list
+{{- if .personal -}}
+{{    $casks = concat $casks (list
         "airtable"
         "android-platform-tools"
         "dropbox"
         "farrago"
         "google-drive"
-        "keybase"
         "lulu"
         "obsidian"
         "pycharm-ce"
         "qbittorrent"
         "skype"
-        )
- -}}
+      )
+-}}
 {{ end -}}
+
+{{- if and .personal (not .hasAppleSilicon) -}}
+{{    $casks = concat $casks (list
+        "keybase"
+      )
+-}}
+{{ end -}}
+
 
 all_brews=({{ range ($brews | sortAlpha | uniq) -}}{{ . }} {{ end -}})
 already_installed_brews=($(brew leaves))
