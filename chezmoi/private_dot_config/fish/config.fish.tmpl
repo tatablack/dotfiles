@@ -19,10 +19,10 @@ end
 # Skip updating brew every time it's invoked
 set -x HOMEBREW_NO_AUTO_UPDATE 1
 
-{{- if .has_apple_silicon -}}
+{{ if .has_apple_silicon -}}
 # Update PATH for brew on Apple Silicon
 set -gx PATH "/opt/homebrew/bin" $PATH
-{{- end -}}
+{{- end }}
 
 # Initialise the prompt configuration
 starship init fish | source
