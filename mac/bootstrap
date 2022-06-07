@@ -19,7 +19,7 @@ is_brew_installed_on_apple_silicon=$?
 
 is_brew_installed=$is_brew_installed_on_intel || $is_brew_installed_on_apple_silicon
 
-if $is_brew_installed_on_apple_silicon; then
+if (( is_brew_installed_on_apple_silicon == 0)); then
   grep -q '/opt/homebrew/bin' /private/var/db/com.apple.xpc.launchd/config/user.plist
 else
   grep -q '/usr/local/bin' /private/var/db/com.apple.xpc.launchd/config/user.plist
@@ -48,7 +48,7 @@ sudo -v
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 # Homebrew
-if ! $is_brew_in_path && ! $is_brew_installed; then
+if (( is_brew_in_path != 0 )) && (( is_brew_installed != 0 )); then
   fancy_echo "Installing Homebrew..."
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 else
@@ -58,8 +58,9 @@ fi
 # Set the Homebrew path for GUI apps. See:
 # - https://docs.brew.sh/FAQ#my-mac-apps-dont-find-homebrew-utilities
 # - https://stackoverflow.com/a/70510488/224426
-if ! $is_brew_in_path_for_gui_apps; then
-  if $is_brew_installed_on_apple_silicon; then
+if (( is_brew_in_path_for_gui_apps != 0 )); then
+  fancy_echo "Setting Homebrew path for GUI apps..."
+  if (( is_brew_installed_on_apple_silicon == 0 )); then
     sudo launchctl config user path "/opt/homebrew/bin:${PATH}"
   else
     sudo launchctl config user path "/usr/local/bin:${PATH}"
@@ -67,7 +68,9 @@ if ! $is_brew_in_path_for_gui_apps; then
 fi
 
 # Set the Homebrew path for Apple Silicon
-if $is_brew_installed_on_apple_silicon; then
+if (( is_brew_installed_on_apple_silicon == 0 )); then
+  fancy_echo "Setting Homebrew path for Apple Silicon..."
+
   if ! grep -q "/opt/homebrew/bin/brew" "${HOME}"/.bashrc; then
     export PATH=/opt/homebrew/bin:${PATH}
     echo "export PATH=/opt/homebrew/bin:${PATH}" >> "${HOME}"/.bashrc
