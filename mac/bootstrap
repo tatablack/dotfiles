@@ -39,6 +39,7 @@ if [[ ! -f "$HOME/Library/Application Support/rbw/config.json" ]]; then
 fi
 
 read -rp "Please, provide your GitHub username, to retrieve your dotfiles: " GH_USERNAME
+read -rp "Finally, provide a hostname for this computer (no spaces): " HOSTNAME
 
 # Ask for the administrator password up front
 fancy_echo "We'll need superuser privileges later on (e.g. to set the machine's hostname), so..."
@@ -46,6 +47,13 @@ sudo -v
 
 # Keep-alive: update existing `sudo` timestamp until the current script has finished
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+
+# Computer name
+sudo scutil --set ComputerName "$HOSTNAME"
+sudo scutil --set HostName "$HOSTNAME"
+sudo scutil --set LocalHostName "$HOSTNAME"
+sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "$HOSTNAME"
+echo "This computer is now known as \"$HOSTNAME\"."
 
 # Homebrew
 if (( is_brew_in_path != 0 )) && (( is_brew_installed != 0 )); then
