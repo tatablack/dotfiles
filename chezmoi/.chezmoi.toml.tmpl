@@ -19,7 +19,7 @@
 
 {{- $has_apple_silicon := false -}}
 {{- if and (eq .chezmoi.os "darwin") (eq .chezmoi.arch "arm64") -}}
-{{-   $has_apple_silicon := true -}}
+{{-   $has_apple_silicon = true -}}
 {{- end -}}
 
 {{- if eq $hostname "Sesame" -}}
