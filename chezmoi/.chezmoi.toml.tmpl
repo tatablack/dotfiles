@@ -17,9 +17,9 @@
 {{-   $hostname = $computerName -}}
 {{- end -}}
 
-{{- $hasAppleSilicon := false -}}
+{{- $has_apple_silicon := false -}}
 {{- if and (eq .chezmoi.os "darwin") (eq .chezmoi.arch "arm64") -}}
-{{-   $hasAppleSilicon := true -}}
+{{-   $has_apple_silicon := true -}}
 {{- end -}}
 
 {{- if eq $hostname "Sesame" -}}
@@ -30,7 +30,7 @@
     headless = {{ $headless }}
     hostname = {{ $hostname | quote }}
     personal = {{ $personal }}
-    hasAppleSilicon = {{ $hasAppleSilicon }}
+    has_apple_silicon = {{ $has_apple_silicon }}
     osid = {{ $osID | quote }}
 
 [diff]

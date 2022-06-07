@@ -118,7 +118,7 @@ bundleid_of() {
 -}}
 {{ end -}}
 
-{{- if and .personal (not .hasAppleSilicon) -}}
+{{- if and .personal (not .has_apple_silicon) -}}
 {{    $casks = concat $casks (list
         "keybase"
       )
