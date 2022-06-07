@@ -13,9 +13,13 @@ set -e
 
 # Get information from the user
 fancy_echo "Bootstrap sequence initiated"
-read -rp "Please, provide the email associated to your Bitwarden account: " EMAIL_BITWARDEN
-read -rp "If you want to use a custom Bitwarden server, provide its url now (including the trailing slash): " BITWARDEN_SERVER
-read -rp "Lastly, your GitHub username, to retrieve your dotfiles: " GH_USERNAME
+
+if [[ ! -f "$HOME/Library/Application Support/rbw/config.json" ]]; then
+  read -rp "Please, provide the email associated to your Bitwarden account: " EMAIL_BITWARDEN
+  read -rp "If you want to use a custom Bitwarden server, provide its url now (including the trailing slash): " BITWARDEN_SERVER
+fi
+
+read -rp "Please, provide your GitHub username, to retrieve your dotfiles: " GH_USERNAME
 
 # Ask for the administrator password up front
 fancy_echo "We'll need superuser privileges later on (e.g. to set the machine's hostname), so..."
@@ -40,12 +44,18 @@ brew "pinentry-mac"
 brew "rbw"
 EOF
 
-fancy_echo "Configuring Bitwarden client..."
-rbw config set email "${EMAIL_BITWARDEN}"
-rbw config set base_url "${BITWARDEN_SERVER}"
-rbw config set pinentry "pinentry-mac"
-rbw sync
+if [[ ! -f "$HOME/Library/Application Support/rbw/config.json" ]]; then
+  fancy_echo "Configuring Bitwarden client..."
+  rbw config set email "${EMAIL_BITWARDEN}"
 
+  if [ -z "${BITWARDEN_SERVER}" ]; then
+    rbw config set base_url "${BITWARDEN_SERVER}"
+  fi
+
+  rbw config set pinentry "pinentry-mac"
+fi
+
+rbw sync
 # Delegate further actions to chezmoi scripts in my own dotfiles repository
 fancy_echo "Delegating to chezmoi..."
 chezmoi init --apply "${GH_USERNAME}"
