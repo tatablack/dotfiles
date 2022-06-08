@@ -28,16 +28,19 @@ This will:
 	- your Bitwarden email
 	- your custom Bitwarden server URL
     - your GitHub username
+    - a hostname for the new computer
 - install HomeBrew (which in turn will install Apple's own Command Line Developer Tools, if needed)
 - using HomeBrew, install a few formulas, namely:
+    - `bash` - Not my default shell, but needed to run certain scripts
     - `chezmoi` - dotfiles manager
-    - `mas` - Mac App Store command-line interfac
+    - `mas` - Mac App Store command-line interface
+    - `pinentry-mac` - Pinentry GUI, used by `rbw`
     - `rbw` - Unoffical Bitwarden CLI
 - execute `chezmoi init --apply <your GitHub username>`. This will:
 	- clone the `dotfiles` repo for the given user
-	- ask for some pieces of information (e.g. email for git, machine type, a new hostname for your computer)
+	- ask for some pieces of information (e.g. email for git, machine type)
 	- run `brew bundle install`
 	- process dotfiles and copy them to the home folder
 	- install some Visual Studio Code extensions
 	- set some defaults for the OS
-    - set your default shell to `fish`
+    - set the default shell to `fish`
