@@ -40,13 +40,11 @@ bundleid_of() {
 # GUI Apps
 {{ $casks := list
         "alfred"
-        "alt-tab"
         "audio-hijack"
         "bitwarden"
         "clipy"
         "coconutbattery"
-        "disk-inventory-x"
-        "dozer"
+        "grandperspective"
         "fanny"
         "finicky"
         "firefox-developer-edition"
@@ -61,8 +59,6 @@ bundleid_of() {
         "istat-menus"
         "iterm2"
         "keka"
-        "noti"
-        "pdf-expert"
         "postman"
         "rectangle"
         "slack"
@@ -104,13 +100,13 @@ bundleid_of() {
 
 {{- if .personal -}}
 {{    $casks = concat $casks (list
-        "airtable"
         "android-platform-tools"
         "dropbox"
         "farrago"
         "google-drive"
         "lulu"
         "obsidian"
+        "pdf-expert"
         "pycharm-ce"
         "qbittorrent"
         "skype"

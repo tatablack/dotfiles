@@ -1,3 +1,8 @@
 [".hammerspoon/Spoons"]
     url = "https://github.com/Hammerspoon/Spoons/raw/master/Spoons/ReloadConfiguration.spoon.zip"
     type = "archive"
+
+# See https://github.com/Mortennn/Dozer/issues/162
+["/Applications"]
+    url = "https://github.com/aonez/Dozer/releases/download/v4.2.1-silicon/Dozer-v4.2.1-silicon.7z"
+    type = "archive"
