@@ -192,13 +192,4 @@ $(
 mas "Amphetamine", id: 937984704
 mas "ColorSlurp", id: 1287239339
 EOF
-
-# Download and install a custom build of Dozer,
-# as the official one doesn't support Apple Silicon.
-# See https://github.com/Mortennn/Dozer/issues/162
-if [[ ! -f "/Applications/Dozer.app/Contents/MacOS/Dozer" ]]; then
-  wget -q https://github.com/aonez/Dozer/releases/download/v4.2.1-silicon/Dozer-v4.2.1-silicon.7z
-  /Applications/BetterZip.app/Contents/Helpers/7za x -r -bso0 -o/Applications ./Dozer-v4.2.1-silicon.7z
-  rm Dozer-v4.2.1-silicon.7z
-fi
 {{ end -}}
