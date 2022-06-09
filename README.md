@@ -1,6 +1,7 @@
 # Dotfiles
 You've likely seen something like this before.
-`dotfiles` are the heart of a machine's configuration, and it's common to keep them online, both as a backup and a blueprint, to use them for new accounts, or on entirely new machines.
+
+`dotfiles` lie at the heart of a machine's configuration, and it's common to keep them online, both as a backup and a blueprint, to use them for new accounts, or on entirely new machines, and also because they may be useful to other people.
 
 This repo assumes usage of the [`chezmoi`](https://www.chezmoi.io/) dotfiles manager; hence the apparently weird naming conventions for certain folders and files.
 
@@ -11,7 +12,7 @@ This repo currently assumes an Apple computer is being used. I plan to expand it
 ## Bootstrap
 This is where it all starts.
 
-However, if you're stting up a new Mac, there are still a few manual actions needed before running the script:
+However, if you're setting up a new Mac, there are still a few manual actions needed before running the script:
 
 - in System Preferences, configure your Apple ID
 - in System Preferences - Security and Privacy - FileVault, configure disk encryption
@@ -41,6 +42,8 @@ This will:
 	- ask for some pieces of information (e.g. email for git, machine type)
 	- run `brew bundle install`
 	- process dotfiles and copy them to the home folder
-	- install some Visual Studio Code extensions
-	- set some defaults for the OS
+	- install Rosetta if needed
     - set the default shell to `fish`
+    - configure `asdf` (by installing a bunch of plugins and languages)
+	- set some defaults for the OS
+	- install some Visual Studio Code extensions
