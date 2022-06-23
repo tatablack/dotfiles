@@ -18,4 +18,3 @@ asdf install nodejs latest
 asdf install python latest
 asdf install rust latest
 asdf install asdf-golang latest
-asdf install java latest
