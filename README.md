@@ -20,6 +20,8 @@ However, if you're setting up a new Mac, there are still a few manual actions ne
 - in System Preferences - Security and Privacy - Privacy - Full Disk Access, add Terminal.app to the list 
 - ensure you're logged in to the App Store
 
+Note: if you later switch to a different terminal app (e.g. iTerm), and you plan to run `chezmoi update` in the future, you'll need to change the "Security and Privacy" settings as above, but referencing the other terminal app (otherwise you'll see some permission errors, for example when executing `defaults write ...` commands). 
+
 Now you can execute the bootstrap script, with:
 
 ```/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/tatablack/dotfiles/master/mac/bootstrap)```
