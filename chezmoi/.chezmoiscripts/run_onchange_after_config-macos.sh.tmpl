@@ -225,6 +225,12 @@ defaults write com.apple.dock showhidden -bool true
 # Don't show recent applications in Dock
 defaults write com.apple.dock show-recents -bool false
 
+# Show only active apps
+defaults write com.apple.dock static-only -bool true
+
+# Enable 4-finger swipe down to show the current app's open windows (aka App Exposé)
+defaults write com.apple.dock showAppExposeGestureEnabled -bool true
+
 # Disable the Launchpad gesture (pinch with thumb and three fingers)
 defaults write com.apple.dock showLaunchpadGestureEnabled -int 0
 
