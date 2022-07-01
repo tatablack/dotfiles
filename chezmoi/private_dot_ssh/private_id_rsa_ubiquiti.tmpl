@@ -1,1 +1,3 @@
+{{- if .personal -}}
 {{- ((list "SSH Key - " .hostname " - Ubiquiti" | join "" | secret "get" "--full"  | split "\n\n")._1) }}
+{{- end }}
