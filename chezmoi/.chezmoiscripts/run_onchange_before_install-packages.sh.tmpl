@@ -2,6 +2,11 @@
 #!/usr/bin/env bash
 set -ufo pipefail
 
+# Determine whether we are logged in to an Apple ID
+# (not sure if this works in case an Apple ID account exists but is logged out)
+defaults read MobileMeAccounts Accounts > /dev/null 2>&1
+is_appleid_logged_in=$?
+
 bundleid_of() {
   osascript -e "id of application \"$1\"" > /dev/null 2>&1
 }
@@ -194,7 +199,11 @@ $(
 )
 
 # GUI Apps from App Store
-mas "Amphetamine", id: 937984704
-mas "ColorSlurp", id: 1287239339
+$(
+  if [[ $is_appleid_logged_in ]]; then
+    echo mas "Amphetamine", id: 937984704
+    echo mas "ColorSlurp", id: 1287239339
+  fi
+)
 EOF
 {{ end -}}
