@@ -126,7 +126,7 @@ if [[ ! -f "$HOME/Library/Application Support/rbw/config.json" ]]; then
   fancy_echo "Configuring Bitwarden client..."
   rbw config set email "${EMAIL_BITWARDEN}"
 
-  if [ -z "${BITWARDEN_SERVER}" ]; then
+  if [[ -n "${BITWARDEN_SERVER}" ]]; then
     rbw config set base_url "${BITWARDEN_SERVER}"
   fi
 
