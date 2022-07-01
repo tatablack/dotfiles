@@ -200,9 +200,9 @@ $(
 
 # GUI Apps from App Store
 $(
-  if [[ $is_appleid_logged_in ]]; then
-    echo mas "Amphetamine", id: 937984704
-    echo mas "ColorSlurp", id: 1287239339
+  if (( is_appleid_logged_in == 0 )); then
+    echo 'mas "Amphetamine", id: 937984704'
+    echo 'mas "ColorSlurp", id: 1287239339'
   fi
 )
 EOF
