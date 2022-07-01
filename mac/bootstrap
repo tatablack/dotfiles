@@ -11,20 +11,46 @@ fancy_echo() {
 command -v brew>/dev/null
 is_brew_in_path=$?
 
+if (( is_brew_in_path == 0 )); then
+  fancy_echo "HomeBrew is in the PATH"
+else
+  fancy_echo "HomeBrew is not in the PATH"
+fi
+
 [[ -f "/usr/local/bin/brew" ]]
 is_brew_installed_on_intel=$?
+
+if (( is_brew_installed_on_intel == 0 )); then
+  fancy_echo "(for Intel machines)"
+fi
 
 [[ -f "/opt/homebrew/bin/brew" ]]
 is_brew_installed_on_apple_silicon=$?
 
-is_brew_installed=$is_brew_installed_on_intel || $is_brew_installed_on_apple_silicon
+if (( is_brew_installed_on_apple_silicon == 0 )); then
+  fancy_echo "(for Apple Silicon machines)"
+fi
+
+if (( is_brew_installed_on_intel == 0 )) || (( is_brew_installed_on_apple_silicon == 0 )); then
+  is_brew_installed=0
+else
+  is_brew_installed=1
+fi
 
 if (( is_brew_installed_on_apple_silicon == 0)); then
+  fancy_echo "Searching for the Apple Silicon HomeBrew path for GUI apps..."
   grep -sq '/opt/homebrew/bin' /private/var/db/com.apple.xpc.launchd/config/user.plist
 else
+  fancy_echo "Searching for the Intel HomeBrew path for GUI apps..."
   grep -sq '/usr/local/bin' /private/var/db/com.apple.xpc.launchd/config/user.plist
 fi
 is_brew_in_path_for_gui_apps=$?
+
+if (( is_brew_in_path_for_gui_apps == 0 )); then
+  fancy_echo "...found."
+else
+  fancy_echo "...not found."
+fi
 
 # shellcheck disable=SC2154
 trap 'ret=$?; test $ret -ne 0 && printf "\nThe bootstrap procedure did not complete.\n\n" >&2; exit $ret' EXIT
@@ -69,15 +95,17 @@ fi
 if (( is_brew_in_path_for_gui_apps != 0 )); then
   fancy_echo "Setting Homebrew path for GUI apps..."
   if (( is_brew_installed_on_apple_silicon == 0 )); then
+    fancy_echo "(on Apple Silicon)"
     sudo launchctl config user path "/opt/homebrew/bin:${PATH}"
   else
+    fancy_echo "(on Intel)"
     sudo launchctl config user path "/usr/local/bin:${PATH}"
   fi
 fi
 
 # Set the Homebrew path for Apple Silicon
 if (( is_brew_installed_on_apple_silicon == 0 )); then
-  fancy_echo "Setting Homebrew path for Apple Silicon..."
+  fancy_echo "Setting Homebrew path for Bash on Apple Silicon..."
 
   if ! grep -sq "/opt/homebrew/bin/brew" "${HOME}"/.bashrc; then
     export PATH=/opt/homebrew/bin:${PATH}
