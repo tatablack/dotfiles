@@ -24,7 +24,7 @@ Note: if you later switch to a different terminal app (e.g. iTerm), and you plan
 
 Now you can execute the bootstrap script, with:
 
-```/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/tatablack/dotfiles/master/mac/bootstrap)```
+```/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/tatablack/dotfiles/master/mac/bootstrap)"```
 
 This will:
 - ask for some information up front, namely:
