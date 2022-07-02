@@ -162,17 +162,17 @@ for cask in "${all_casks[@]}"; do
       echo "${cask_info}" | grep -qE "\(Spotlight metadata importer\)"
       is_spotlight_metadata_importer=$?
 
-      if [[ $is_app ]]; then
+      if (( is_app == 0 )); then
           bundleid_of "${cask_name}"
-      elif [[ $is_quicklookplugin ]]; then
+      elif (( is_quicklookplugin == 0 )); then
           ls  ~/Library/QuickLook/"${cask_name}" > /dev/null 2>&1
-      elif [[ $is_spotlight_metadata_importer ]]; then
+      elif (( is_spotlight_metadata_importer == 0 )); then
           ls  ~/Library/Spotlight/"${cask_name}" > /dev/null 2>&1
       fi
 
       is_installed=$?
 
-      if [[ "${is_installed}" == "1" ]]; then
+      if (( is_installed == 1 )); then
         casks_to_install+=($cask)
       fi
     fi
