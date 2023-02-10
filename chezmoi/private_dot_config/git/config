@@ -39,7 +39,7 @@
   sbu = "!f() { git subtree pull --prefix $2 $1 master --squash; }; f"
 
 [core]
-  excludesfile = ~/config/git/ignore_global
+  excludesFile = ~/.config/git/ignore_global
   editor = micro
 
 [core]
