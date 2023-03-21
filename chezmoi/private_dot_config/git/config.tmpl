@@ -1,7 +1,19 @@
 [user]
   name = Angelo Tata
-  email = angelo.tata@gmail.com
-  signingkey = 5E54640D3C545349
+  useConfigOnly = true
+
+{{- if .personal -}}
+  {{- list "Git config - " .hostname " - Personal" | join "" | secret "get" "--full" }} 
+{{- end }}
+
+[include]
+  path = config.personal
+
+{{- if .personal -}}
+[includeIf "gitdir:~/workspace/codility/"]
+  path = config.work
+{{- end }}
+
 
 [color]
   status = auto
