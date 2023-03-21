@@ -8,6 +8,7 @@ asdf plugin-add poetry https://github.com/asdf-community/asdf-poetry.git || true
 asdf plugin-add rust https://github.com/code-lever/asdf-rust.git || true
 asdf plugin-add asdf-golang https://github.com/kennyp/asdf-golang.git || true
 asdf plugin-add java https://github.com/halcyon/asdf-java.git || true
+asdf plugin-add deno https://github.com/asdf-community/asdf-deno.git || true
 
 asdf install direnv latest
 asdf global direnv latest
@@ -18,3 +19,4 @@ asdf install nodejs latest
 asdf install python latest
 asdf install rust latest
 asdf install asdf-golang latest
+
