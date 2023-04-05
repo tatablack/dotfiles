@@ -12,9 +12,9 @@ command -v brew>/dev/null
 is_brew_in_path=$?
 
 if (( is_brew_in_path == 0 )); then
-  fancy_echo "HomeBrew is in the PATH"
+  fancy_echo "Homebrew is in the PATH"
 else
-  fancy_echo "HomeBrew is not in the PATH"
+  fancy_echo "Homebrew is not in the PATH"
 fi
 
 [[ -f "/usr/local/bin/brew" ]]
@@ -38,10 +38,10 @@ else
 fi
 
 if (( is_brew_installed_on_apple_silicon == 0)); then
-  fancy_echo "Searching for the Apple Silicon HomeBrew path for GUI apps..."
+  fancy_echo "Searching for the Apple Silicon Homebrew path for GUI apps..."
   grep -sq '/opt/homebrew/bin' /private/var/db/com.apple.xpc.launchd/config/user.plist
 else
-  fancy_echo "Searching for the Intel HomeBrew path for GUI apps..."
+  fancy_echo "Searching for the Intel Homebrew path for GUI apps..."
   grep -sq '/usr/local/bin' /private/var/db/com.apple.xpc.launchd/config/user.plist
 fi
 is_brew_in_path_for_gui_apps=$?
@@ -64,7 +64,7 @@ if [[ ! -f "$HOME/Library/Application Support/rbw/config.json" ]]; then
   read -rp "If you want to use a custom Bitwarden server, provide its url now (including the trailing slash): " BITWARDEN_SERVER
 fi
 
-read -rp "Please, provide your GitHub username, to retrieve your dotfiles: " GH_USERNAME
+read -rp "Please, provide the GitHub username associated to the dotfiles you want to use with chezmoi: " GH_USERNAME
 read -rp "Finally, provide a hostname for this computer (no spaces): " HOSTNAME
 
 # Ask for the administrator password up front
